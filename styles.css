@@ -1,0 +1,358 @@
+
+    .list-group-item.active {
+        background: #d19c97 !important;
+    }
+
+    .bg-warning {
+        background: #d19c97 !important;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 4% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 70%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease-in-out;
+        /*transform: translateY(-100%);*/
+    }
+
+    .close {
+        float: right;
+        text-align: right;
+        font-size: 30px;
+    }
+
+    .modal-content h2 {
+        text-align: center;
+        margin-top: -35px;
+    }
+
+    .button_div {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .button_div button {
+        margin-right: 10px;
+        background: #06C167;
+        border: 1px solid #06C167;
+        padding: 5px 15px;
+        color: #FFFFFF;
+        border-radius: 2px;
+    }
+
+    #addAddressForm input {
+        padding: 5px;
+    }
+
+    .nice-select {
+        padding: 0px !important;
+        height: 38px !important;
+        line-height: 38px !important;
+    }
+
+    .add_address_button {
+        background: #06C167;
+        border: 1px solid #06C167;
+        padding: 5px 15px;
+        color: #FFFFFF;
+        border-radius: 2px;
+    }
+
+    @media (max-width: 768px) {
+        .main_flex_div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .inner_flex_div {
+            min-width: 100% !important;
+        }
+
+        .modal-content {
+            padding: 10px 0px !important;
+            min-width: 95% !important;
+            height: 700px;
+            overflow: scroll;
+        }
+
+        .close {
+            margin-right: 10px;
+        }
+    }
+
+    #orderDetails {
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        /* padding: 20px; */
+    }
+
+    #orderDetails .card {
+        border: none;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #orderDetails .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #orderDetails h4 {
+        font-size: 1.5rem;
+        color: #333;
+        font-weight: bold;
+        border-bottom: 2px solid #e0e0e0;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+    }
+
+    #orderDetails .card-body {
+        padding: 15px;
+        font-size: 0.95rem;
+        color: #555;
+        line-height: 1.6;
+    }
+
+    #orderDetails .table-responsive {
+        margin-top: 15px;
+    }
+
+    #orderDetails table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    #orderDetails table th,
+    #orderDetails table td {
+        text-align: left;
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #orderDetails table th {
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+
+    #orderDetails table tr:hover {
+        background-color: #f7f7f7;
+    }
+
+#profileDetails {
+    background-color: #fdfdfd;
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    margin-top: 20px;
+    overflow: hidden; 
+    display: none; 
+    transition: all 0.3s ease;
+}
+
+#profileDetails .card-body {
+    padding: 20px; 
+    font-family: 'Arial', sans-serif; 
+}
+
+#profileDetails .profile-info h5 {
+    font-size: 1.8rem; 
+    color: #333; 
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0; 
+    padding-bottom: 5px;
+}
+
+#profileDetails .profile-info p {
+    font-size: 1rem; 
+    color: #555;
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+#profileDetails .profile-info p strong {
+    color: #000;
+}
+
+#profileDetails {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px); 
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); 
+    }
+}
+
+/* General styling for the left profile card */
+.col-lg-4 .card {
+    background-color: #fff; /* Clean white background */
+    border: none; /* Remove default border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover animation */
+}
+
+.col-lg-4 .card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.col-lg-4 .card-body {
+    padding: 20px; /* Add padding for better spacing */
+    text-align: center; /* Center content */
+}
+
+/* Profile image styling */
+.col-lg-4 .card-body img {
+    border: 4px solid #ffc107; /* Add a border to the image */
+    border-radius: 50%; /* Circle shape */
+    width: 110px;
+    height: 110px;
+    object-fit: cover; /* Ensure image is contained properly */
+    margin-bottom: 15px; /* Space below the image */
+}
+
+/* Name and text details */
+.col-lg-4 .card-body h4 {
+    font-size: 1.5rem; /* Slightly larger font */
+    font-weight: bold; /* Bold text */
+    color: #333; /* Darker color */
+    margin-bottom: 5px;
+}
+
+.col-lg-4 .card-body .text-secondary {
+    font-size: 1rem; /* Standard text size */
+    color: #6c757d; /* Secondary text color */
+    margin-bottom: 5px;
+}
+
+.col-lg-4 .card-body .text-muted {
+    font-size: 0.9rem; /* Slightly smaller font */
+    color: #999; /* Muted text color */
+}
+
+/* Navigation links */
+.col-lg-4 .list-group {
+    margin-top: 20px;
+}
+
+.col-lg-4 .list-group-item {
+    font-size: 1rem; 
+    background-color: transparent; 
+    border: none;
+    padding: 10px 20px; 
+    text-transform: capitalize; 
+    transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+.col-lg-4 .list-group-item:hover {
+    background-color: #f1f1f1; /* Subtle hover background */
+    color: #0056b3; /* Darker blue on hover */
+    cursor: pointer;
+}
+
+.col-lg-4 .list-group-item.active {
+    color: #fff; /* White text for active link */
+    background-color: #007bff; /* Highlight active link */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.col-lg-4 .list-group-item:not(.active):hover {
+    text-decoration: none; /* Prevent underline on hover */
+}
+
+/* Style for Edit Profile button */
+#profileDetails .btn {
+
+    color: #fff; /* White text */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Padding */
+    font-size: 1rem; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease;
+    float: right;
+    margin-bottom: 20px;
+}
+
+#profileDetails .btn:hover {
+    background-color: #e28680; /* Darker blue on hover */
+}
+
+/* Modal styles */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 200; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0, 0, 0); 
+    background-color: rgba(0, 0, 0, 0.4); 
+}
+
+.modal-content{
+    background-color: #fefefe;
+    /* margin: 15% auto; */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 15px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.button_div button {
+    margin-right: 10px;
+    background: #d19c97;
+    border: 1px solid #d19c97;
+    padding: 5px 15px;
+    color: #FFFFFF;
+    border-radius: 2px;
+}
+.change{
+
+    border-radius: 5px;
+}
+
+    #message-container div {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    #message-container .success {
+        background-color: #d4edda;
+        color: #155724;
+    }
+    #message-container .error {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+

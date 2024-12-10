@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+h1 {
+    font-size: 100px;
+    color: #ff4757;
+    margin: 0;
+}
+
+p {
+    font-size: 20px;
+    margin: 10px 0 20px;
+    color: #2f3542;
+}
+
+.btn {
+    text-decoration: none;
+    background-color: #1e90ff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.btn:hover {
+    background-color: #3742fa;
+}
