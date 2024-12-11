@@ -1,82 +1,76 @@
-<script>
-    $(document).ready(function () {
-    $("#place-order").click(function () {
-        // Clear previous error messages
-        $(".error-message").text("");
+<?php
+include 'db.php';
+session_start();
 
-        let isValid = true;
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode(['success' => false, 'message' => 'User not logged in.']);
+    exit;
+}
 
-        const formData = {
-            user_id: <?php echo $user_id; ?>,  // Add user_id
-            first_name: $("input[name='first_name']").val(),
-            last_name: $("input[name='last_name']").val(),
-            email: $("input[name='email']").val(),
-            mobile: $("input[name='mobile']").val(),
-            address: $("input[name='address']").val(),
-            zip_code: $("input[name='zip_code']").val(),
-            city: $("select[name='city']").val(),
-            state: $("select[name='state']").val(),
-            total: <?php echo $total; ?>
-        };
+$user_id = $_SESSION['user_id'];
 
-        // Basic validation checks
-        if (formData.first_name === "") {
-            $("input[name='first_name']").next(".error-message").text("First name is required.");
-            isValid = false;
-        }
-        if (formData.last_name === "") {
-            $("input[name='last_name']").next(".error-message").text("Last name is required.");
-            isValid = false;
-        }
-        if (formData.email === "" || !/\S+@\S+\.\S+/.test(formData.email)) {
-            $("input[name='email']").next(".error-message").text("Valid email is required.");
-            isValid = false;
-        }
-        if (formData.mobile === "" || !/^\d{10}$/.test(formData.mobile)) {
-            $("input[name='mobile']").next(".error-message").text("Valid mobile number is required.");
-            isValid = false;
-        }
-        if (formData.address === "") {
-            $("input[name='address']").next(".error-message").text("Address is required.");
-            isValid = false;
-        }
-        if (formData.zip_code === "") {
-            $("input[name='zip_code']").next(".error-message").text("ZIP code is required.");
-            isValid = false;
-        }
-        if (formData.city === null) {
-            $("select[name='city']").next(".error-message").text("City is required.");
-            isValid = false;
-        }
-        if (formData.state === null) {
-            $("select[name='state']").next(".error-message").text("State is required.");
-            isValid = false;
-        }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Order details
+    $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
+    $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $mobile = mysqli_real_escape_string($conn, $_POST['mobile']);
+    $address = mysqli_real_escape_string($conn, $_POST['address']);
+    $zip_code = mysqli_real_escape_string($conn, $_POST['zip_code']);
+    $city = mysqli_real_escape_string($conn, $_POST['city']);
+    $state = mysqli_real_escape_string($conn, $_POST['state']);
+    $total = mysqli_real_escape_string($conn, $_POST['total']);
 
-        if (!isValid) {
-            return;
-        }
+    // Begin transaction
+    mysqli_begin_transaction($conn);
 
-        
-        $.ajax({
-            url: "place_order.php",
-            type: "POST",
-            data: formData,
-            dataType: "json",
-            success: function (response) {
-                $("#modalMessage").text(response.message);
-                $("#orderModal").modal('show');
+    try {
+        // Insert into orders table
+        $sql = "INSERT INTO orders (user_id, first_name, last_name, email, mobile, address, zip_code, city, state, total) 
+                VALUES ('$user_id', '$first_name', '$last_name', '$email', '$mobile', '$address', '$zip_code', '$city', '$state', '$total')";
 
-                setTimeout(function() {
-                    window.location.href = "success.php";
-                }, 2000); // 2-second delay
-            },
-            error: function () {
-                $("#modalMessage").text("Error placing order.");
-                $("#orderModal").modal('show');
+        if (mysqli_query($conn, $sql)) {
+            $order_id = mysqli_insert_id($conn);
+
+            // Fetch cart items from cart table
+            $cart_sql = "SELECT product_id, quantity FROM cart WHERE user_id = '$user_id'";
+            $cart_result = mysqli_query($conn, $cart_sql);
+
+            if ($cart_result && mysqli_num_rows($cart_result) > 0) {
+                // Insert each cart item into the order_items table
+                while ($cart_row = mysqli_fetch_assoc($cart_result)) {
+                    $product_id = $cart_row['product_id'];
+                    $quantity = $cart_row['quantity'];
+
+                    // Insert into order_items table
+                    $order_items_sql = "INSERT INTO order_items (order_id, product_id, quantity) 
+                                        VALUES ('$order_id', '$product_id', '$quantity')";
+                    if (!mysqli_query($conn, $order_items_sql)) {
+                        throw new Exception('Failed to add product to order items.');
+                    }
+                }
+
+                // Now clear the cart after order placement
+                $delete_cart_sql = "DELETE FROM cart WHERE user_id = '$user_id'";
+                if (!mysqli_query($conn, $delete_cart_sql)) {
+                    throw new Exception('Failed to clear cart.');
+                }
+
+                // Commit transaction
+                mysqli_commit($conn);
+                echo json_encode(['success' => true, 'message' => 'Order placed successfully.']);
+            } else {
+                throw new Exception('Cart is empty.');
             }
-        });
-    });
-});
+        } else {
+            throw new Exception('Error placing order.');
+        }
+    } catch (Exception $e) {
+        // Rollback on error
+        mysqli_roll_back($conn);
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    }
 
-</script>
+    mysqli_close($conn);
+}
+?>

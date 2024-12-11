@@ -4,7 +4,7 @@ session_start();
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
-    exit(); 
+    exit();
 }
 include 'header.php';
 
@@ -21,7 +21,7 @@ include 'header.php';
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtbEsykx-0fhTred6UwHDYtMFd2UgTJCG4gaklT1dx4suRO4_n5LJr4Gg28kquSX5fpNo&usqp=CAU"
+                                <img src=""
                                     alt="Admin" class="rounded-circle p-1 bg-warning" width="110">
                                 <div class="mt-3">
                                     <h4></h4>
@@ -96,27 +96,28 @@ include 'header.php';
                                 <form id="editProfileForm" onsubmit="saveProfile(event)">
                                     <div class="col-12 d-flex flex-column inner_flex_div">
                                         <label for="first_name">First Name:</label>
-                                        <input class="form-control" type="text" id="first_name" required><br>
+                                        <input class="form-control" type="text" id="first_name" ><br>
                                     </div>
                                     <div class="col-12 d-flex flex-column inner_flex_div">
                                         <label for="last_name">Last Name:</label>
-                                        <input class="form-control" type="text" id="last_name" required><br>
+                                        <input class="form-control" type="text" id="last_name" ><br>
                                     </div>
                                     <div class="col-12 d-flex flex-column inner_flex_div">
                                         <label for="email">Email:</label>
-                                        <input class="form-control" type="email" id="email" required><br>
+                                        <input class="form-control" type="email" id="email" ><br>
                                     </div>
                                     <div class="col-12 d-flex flex-column inner_flex_div">
                                         <label for="mobile">Mobile Number:</label>
-                                        <input class="form-control" type="tel" id="mobile" required pattern="[0-9]{10}"><br>
+                                        <input class="form-control" type="tel" id="mobile" 
+                                            pattern="[0-9]{10}"><br>
                                     </div>
                                     <div class="col-12 d-flex flex-column inner_flex_div">
                                         <label for="age">Age:</label>
-                                        <input class="form-control" type="number" id="age" required><br>
+                                        <input class="form-control" type="number" id="age" ><br>
                                     </div>
                                     <div class="col-12 d-flex flex-column inner_flex_div">
                                         <label for="gender">Gender:</label>
-                                        <select class="form-control"  id="gender" required>
+                                        <select class="form-control" id="gender" >
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
                                             <option value="Other">Other</option>
@@ -157,15 +158,15 @@ include 'header.php';
                                 <div class="row">
                                     <div class="col-12 d-flex flex-column inner_flex_div">
                                         <label for="current_password">Current Password:</label>
-                                        <input class="form-control" type="password" id="current_password" required><br>
+                                        <input class="form-control" type="password" id="current_password" ><br>
                                     </div>
                                     <div class="col-12 d-flex flex-column inner_flex_div">
                                         <label for="new_password">New Password:</label>
-                                        <input class="form-control" type="password" id="new_password" required><br>
+                                        <input class="form-control" type="password" id="new_password" ><br>
                                     </div>
                                     <div class="col-12 d-flex flex-column inner_flex_div mt-3">
                                         <label for="confirm_password">Confirm Password:</label>
-                                        <input class="form-control" type="password" id="confirm_password" required><br>
+                                        <input class="form-control" type="password" id="confirm_password" ><br>
                                     </div>
                                 </div>
 
@@ -175,9 +176,9 @@ include 'header.php';
                                         class="btn btn-outline-primary">Cancel</button>
                                 </div>
                                 <br>
-                                <div id="responseMessage"
-                                    style="display:none; padding: 10px; background-color: #f1f1f1; border: 1px solid #ccc; margin-top: 10px;">
-                                </div>
+                                <div id="responseMessage1"
+                                        style="display:none; padding: 10px; background-color: #f1f1f1; border: 1px solid #ccc; margin-top: 10px;">
+                                    </div>
                             </form>
                         </div>
 
@@ -382,17 +383,22 @@ include 'footer.php';
                 new_password: newPassword
             },
             success: function (response) {
-                $('#responseMessage').text(response).show().css('background-color', 'green').css('color', 'white');
+                var data = JSON.parse(response);
 
-                setTimeout(function () {
-                    window.location.href = 'profile.php';
-                }, 3000);
+                if (data.status === 'success') {
+                    $('#responseMessage1').text(data.message).show().css('background-color', 'green').css('color', 'white');
+                    setTimeout(function () {
+                        window.location.href = 'profile.php';
+                    }, 3000);
+                } else {
+                    $('#responseMessage1').text(data.message).show().css('background-color', 'red').css('color', 'white');
+                }
             },
             error: function (xhr, status, error) {
-
-                $('#responseMessage').text("An error occurred while changing the password. Please try again.").show().css('background-color', 'red').css('color', 'white');
+                $('#responseMessage1').text("An error occurred while changing the password. Please try again.").show().css('background-color', 'red').css('color', 'white');
             }
         });
+
 
     }
 

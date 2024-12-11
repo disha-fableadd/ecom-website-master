@@ -261,16 +261,16 @@ mysqli_close($conn);
                 }
             });
         });
-         $('#place-order').on('click', function () {
-            $.post('clear_cart.php', { session_id: '<?php echo session_id(); ?>' }, function (response) {
-                if (response.success) {
-                    setTimeout(function () {
-                            window.location.href = "success.php";
-                        }, 3000);
-                } else {
-                    alert('Failed to clear cart.');
-                }
-            }, 'json');
-        });
+        //  $('#place-order').on('click', function () {
+        //     $.post('clear_cart.php', { session_id: '<?php echo session_id(); ?>' }, function (response) {
+        //         if (response.success) {
+        //             // setTimeout(function () {
+        //             //         window.location.href = "success.php";
+        //             //     }, 3000);
+        //         } else {
+        //             alert('Failed to clear cart.');
+        //         }
+        //     }, 'json');
+        // });
     });
 </script>

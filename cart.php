@@ -40,7 +40,7 @@
                         <h5 class="font-weight-bold"><span id="grandTotal">0.00</span></h5>
                     </div>
                     <button class="btn btn-block btn-primary my-3 py-3" id="submitOrder" style="display: none;">
-                        <a href="checkout-process.php" style="color:white; text-decoration: none;"> Proceed To Checkout</a>
+                        <a href="checkout.php" style="color:white; text-decoration: none;"> Proceed To Checkout</a>
                     </button>
 
                 </div>

@@ -12,46 +12,54 @@ include 'header.php';
                         <div class="col-md-6 form-group">
                             <label for="first_name">First Name</label>
                             <input type="text" class="form-control" name="first_name" id="first_name"
-                                placeholder="Enter your first name" required>
+                                placeholder="Enter your first name" >
+                                <div id="message1" class="text-center text-danger"></div>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="last_name">Last Name</label>
                             <input type="text" class="form-control" name="last_name" id="last_name"
-                                placeholder="Enter your last name" required>
+                                placeholder="Enter your last name" >
+                                <div id="message2" class="text-center text-danger"></div>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="email">Email Address</label>
                             <input type="email" class="form-control" name="email" id="email"
-                                placeholder="Enter your email" required>
+                                placeholder="Enter your email" >
+                                <div id="message3" class="text-center text-danger"></div>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="password">Password</label>
                             <input type="password" class="form-control" name="password" id="password"
-                                placeholder="Enter a password" required>
+                                placeholder="Enter a password" >
+                                <div id="message4" class="text-center text-danger"></div>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="age">Age</label>
                             <input type="number" class="form-control" name="age" id="age" placeholder="Enter your age"
-                                required>
+                                >
+                                <div id="message5" class="text-center text-danger"></div>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="gender">Gender</label>
-                            <select class="form-control" name="gender" id="gender" required>
+                            <select class="form-control" name="gender" id="gender" >
                                 <option value="">Select Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                                 <option value="Other">Other</option>
                             </select>
+                            <div id="message6" class="text-center text-danger"></div>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="profile_picture">Profile Picture</label>
                             <input type="file" class="form-control" name="profile_picture" id="profile_picture"
                                 accept="image/*">
+                                <div id="message7" class="text-center text-danger"></div>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="mobile">Mobile Number</label>
                             <input type="text" class="form-control" name="mobile" id="mobile"
-                                placeholder="Enter your mobile number" required>
+                                placeholder="Enter your mobile number" >
+                                <div id="message8" class="text-center text-danger"></div>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Register</button>
@@ -82,45 +90,45 @@ include 'footer.php';
             // Validate First Name
             if ($('#first_name').val().trim() === '') {
                 valid = false;
-                $('#message').append('<div class="alert alert-danger">First Name is required.</div>');
+                $('#message1').append('<div class="">First Name is require .</div>');
             }
 
             // Validate Last Name
             if ($('#last_name').val().trim() === '') {
                 valid = false;
-                $('#message').append('<div class="alert alert-danger">Last Name is required.</div>');
+                $('#message2').append('<div class="">Last Name is require .</div>');
             }
 
             // Validate Email
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if ($('#email').val().trim() === '' || !emailPattern.test($('#email').val().trim())) {
                 valid = false;
-                $('#message').append('<div class="alert alert-danger">Enter a valid email address.</div>');
+                $('#message3').append('<div class="">Enter a valid email address.</div>');
             }
 
             // Validate Password (min 6 characters)
             if ($('#password').val().trim().length < 6) {
                 valid = false;
-                $('#message').append('<div class="alert alert-danger">Password must be at least 6 characters long.</div>');
+                $('#message4').append('<div class="">Password must be at least 6 characters long.</div>');
             }
 
             // Validate Age
             if ($('#age').val().trim() === '' || $('#age').val() < 18) {
                 valid = false;
-                $('#message').append('<div class="alert alert-danger">Age must be 18 or older.</div>');
+                $('#message5').append('<div class="">Age must be 18 or older.</div>');
             }
 
             // Validate Gender
             if ($('#gender').val() === '') {
                 valid = false;
-                $('#message').append('<div class="alert alert-danger">Gender selection is required.</div>');
+                $('#message6').append('<div class="">Select the Gender .</div>');
             }
 
             // Validate Mobile Number (10 digits)
             const mobilePattern = /^\d{10}$/;
             if ($('#mobile').val().trim() === '' || !mobilePattern.test($('#mobile').val().trim())) {
                 valid = false;
-                $('#message').append('<div class="alert alert-danger">Enter a valid 10-digit mobile number.</div>');
+                $('#message8').append('<div class="">Enter a valid 10-digit mobile number.</div>');
             }
 
             // If all validations pass, proceed with AJAX request
