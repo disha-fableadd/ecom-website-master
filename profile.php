@@ -21,8 +21,7 @@ include 'header.php';
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src=""
-                                    alt="Admin" class="rounded-circle p-1 bg-warning" width="110">
+                                <img src="" alt="Admin" class="rounded-circle p-1 bg-warning" width="110">
                                 <div class="mt-3">
                                     <h4></h4>
                                     <p class="text-dark mb-1">+91 </p>
@@ -47,40 +46,6 @@ include 'header.php';
                     </div>
                 </div>
                 <div class="col-lg-8">
-                    <div id="orderDetails" class="">
-
-                        <div class="card mt-4">
-                            <div class="card-body p-0 table-responsive">
-                                <h4 class="p-3 mb-0">Orders</h4>
-                                <table id="orders-table" class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-
-                                            <th>Mobile</th>
-                                            <th>Address</th>
-                                            <th>City</th>
-
-                                            <th>PName</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                            <th>Action</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Orders will be populated here by AJAX -->
-                                    </tbody>
-                                </table>
-
-                                <div id="message-container"></div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
                     <div id="profileDetails" class="card" style="display: none;">
                         <div class="card-body">
                             <div class="profile-info">
@@ -96,28 +61,27 @@ include 'header.php';
                                 <form id="editProfileForm" onsubmit="saveProfile(event)">
                                     <div class="col-12 d-flex flex-column inner_flex_div">
                                         <label for="first_name">First Name:</label>
-                                        <input class="form-control" type="text" id="first_name" ><br>
+                                        <input class="form-control" type="text" id="first_name"><br>
                                     </div>
                                     <div class="col-12 d-flex flex-column inner_flex_div">
                                         <label for="last_name">Last Name:</label>
-                                        <input class="form-control" type="text" id="last_name" ><br>
+                                        <input class="form-control" type="text" id="last_name"><br>
                                     </div>
                                     <div class="col-12 d-flex flex-column inner_flex_div">
                                         <label for="email">Email:</label>
-                                        <input class="form-control" type="email" id="email" ><br>
+                                        <input class="form-control" type="email" id="email"><br>
                                     </div>
                                     <div class="col-12 d-flex flex-column inner_flex_div">
                                         <label for="mobile">Mobile Number:</label>
-                                        <input class="form-control" type="tel" id="mobile" 
-                                            pattern="[0-9]{10}"><br>
+                                        <input class="form-control" type="tel" id="mobile" pattern="[0-9]{10}"><br>
                                     </div>
                                     <div class="col-12 d-flex flex-column inner_flex_div">
                                         <label for="age">Age:</label>
-                                        <input class="form-control" type="number" id="age" ><br>
+                                        <input class="form-control" type="number" id="age"><br>
                                     </div>
                                     <div class="col-12 d-flex flex-column inner_flex_div">
                                         <label for="gender">Gender:</label>
-                                        <select class="form-control" id="gender" >
+                                        <select class="form-control" id="gender">
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
                                             <option value="Other">Other</option>
@@ -137,6 +101,46 @@ include 'header.php';
 
 
                     </div>
+                    <!-- Order Details View Section -->
+                    <div id="orderDetails" class="" style="display: none;">
+                        <div class="card mt-4 p-5">
+                            <div class="card-body p-0">
+                                <h4 class="text-center mb-0">Order Details</h4>
+                                <div id="order-details-container">
+                                    <!-- Order details will be injected here -->
+                                </div>
+                                <button id="back-to-orders-btn" class="btn btn-primary mt-3" style="float:right;">Back
+                                    to Orders</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Orders Table Section -->
+                    <div id="ordersTable" class="" style="display: none;">
+                        <div class="card mt-4">
+                            <div class="card-body p-0 table-responsive">
+                                <h4 class="p-3 mb-0">Orders</h4>
+                                <table id="orders-table" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>PName</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Orders will be populated here by AJAX -->
+                                    </tbody>
+                                </table>
+                                <div id="message-container"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
 
                     <div id="addressBook" class="card" style="display: none;">
                         <div class="card-body">
@@ -158,15 +162,15 @@ include 'header.php';
                                 <div class="row">
                                     <div class="col-12 d-flex flex-column inner_flex_div">
                                         <label for="current_password">Current Password:</label>
-                                        <input class="form-control" type="password" id="current_password" ><br>
+                                        <input class="form-control" type="password" id="current_password"><br>
                                     </div>
                                     <div class="col-12 d-flex flex-column inner_flex_div">
                                         <label for="new_password">New Password:</label>
-                                        <input class="form-control" type="password" id="new_password" ><br>
+                                        <input class="form-control" type="password" id="new_password"><br>
                                     </div>
                                     <div class="col-12 d-flex flex-column inner_flex_div mt-3">
                                         <label for="confirm_password">Confirm Password:</label>
-                                        <input class="form-control" type="password" id="confirm_password" ><br>
+                                        <input class="form-control" type="password" id="confirm_password"><br>
                                     </div>
                                 </div>
 
@@ -177,13 +181,14 @@ include 'header.php';
                                 </div>
                                 <br>
                                 <div id="responseMessage1"
-                                        style="display:none; padding: 10px; background-color: #f1f1f1; border: 1px solid #ccc; margin-top: 10px;">
-                                    </div>
+                                    style="display:none; padding: 10px; background-color: #f1f1f1; border: 1px solid #ccc; margin-top: 10px;">
+                                </div>
                             </form>
                         </div>
 
 
                     </div>
+
 
 
                 </div>
@@ -227,7 +232,7 @@ include 'header.php';
 
     function showOrderDetails() {
         hideAllSections();
-        document.getElementById('orderDetails').style.display = 'block';
+        document.getElementById('ordersTable').style.display = 'block';
         setActiveLink(1);
     }
 
@@ -238,7 +243,7 @@ include 'header.php';
     }
 
     function hideAllSections() {
-        document.getElementById('orderDetails').style.display = 'none';
+        document.getElementById('ordersTable').style.display = 'none';
         document.getElementById('profileDetails').style.display = 'none';
         document.getElementById('addressBook').style.display = 'none';
     }
@@ -421,28 +426,25 @@ include 'footer.php';
                         orders.forEach(function (order) {
                             tableBody.append(
                                 `<tr>
-                               
-                                <td>${order.first_name}</td>
-                                <td>${order.mobile}</td>
-                                <td>${order.address}</td>
-                                <td>${order.city}</td>
-                                <td>${order.product_name}</td>
-                                <td>${order.product_price}</td>
-                                  <td>${order.quantity}</td>
-                                <td>${order.total}</td>
-                                <td>
-                                    <button class="delete-order-btn text-danger" data-id="${order.order_id}" style="color:red;">
-                                        🗑️
-                                    </button>
-                                </td>
-                                
-                            </tr>`
+                <td>${order.product_name}</td>
+                <td>${order.product_price}</td>
+                <td>${order.quantity}</td>
+                <td>${order.total}</td>
+                <td>
+                    <button class="view-order-btn text-info" data-id="${order.order_id}" style="color:blue;">
+                        👁️
+                    </button>
+                    <button class="delete-order-btn text-danger" data-id="${order.order_id}" style="color:red;">
+                        🗑️
+                    </button>
+                </td>
+            </tr>`
                             );
                         });
                     } else {
-
                         tableBody.append('<tr><td colspan="13">No orders found.</td></tr>');
                     }
+
                 } else {
                     // Handle the error (e.g., user not logged in)
                     alert(response.message);
@@ -480,6 +482,64 @@ include 'footer.php';
             });
         }
     });
+
+    $(document).on('click', '.view-order-btn', function () {
+        var orderId = $(this).data('id');
+        console.log(orderId);
+
+
+        $('#ordersTable').css('display', 'none');
+        $('#orderDetails').css('display', 'block');
+
+        $.ajax({
+            url: 'get_order_details.php',
+            type: 'GET',
+            data: { order_id: orderId },
+            success: function (response) {
+                console.log(response);
+
+                var data = response;
+
+                if (data.success) {
+                    var order = data.order;
+                    var user = data.user;
+
+                    var detailsHtml = `
+                        <h3>Order Details</h3>
+                        <div style="display: flex; align-items: center;">
+                            <div style="flex: 1;">
+                                <p><strong>Product Name:</strong> ${order.name}</p>
+                                <p><strong>Price:</strong> ${order.price}</p>
+                                <p><strong>Quantity:</strong> ${order.quantity}</p>
+                                <p><strong>Total:</strong> ${order.total}</p>
+                            </div>
+                            <div style="flex: 0 0 150px; padding-left: 20px;">
+                                <img src="uploads/${order.image}" alt="${order.name}" style="width: 100%; max-width: 250px; height: auto;">
+                            </div>
+                        </div>
+
+                        <h4>User Information</h4>
+                        <p><strong>Email:</strong> ${user.email}</p>
+                        <p><strong>Mobile:</strong> ${user.mobile}</p>
+                        <p><strong>Address:</strong> ${user.address}</p>
+                        <p><strong>City:</strong> ${user.city}</p>
+                        <p><strong>State:</strong> ${user.state}</p>
+                    `;
+
+                    $('#order-details-container').html(detailsHtml);
+
+                } else {
+                    alert('Failed to fetch order details');
+                }
+            }
+        });
+    });
+
+    $('#back-to-orders-btn').on('click', function () {
+        $('#orderDetails').css('display', 'none');
+        $('#ordersTable').css('display', 'block');
+    });
+
 
 
 </script>

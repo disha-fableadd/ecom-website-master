@@ -356,3 +356,23 @@
         color: #721c24;
     }
 
+    .order-details-container {
+        display: flex;
+        align-items: center;
+    }
+    
+    .order-details-container .product-info {
+        flex: 1;
+    }
+    
+    .order-details-container .product-image {
+        flex: 0 0 150px;
+        padding-left: 20px;
+    }
+    
+    .order-details-container .product-image img {
+        width: 100%;
+        max-width: 150px;
+        height: auto;
+    }
+    

@@ -2,6 +2,7 @@
 include 'db.php';
 session_start();
 
+
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
 if (!$user_id) {
@@ -252,7 +253,7 @@ mysqli_close($conn);
                     if (response.success) {
                         setTimeout(function () {
                             window.location.href = "success.php";
-                        }, 3000);
+                        }, 2000);
                     }
                 },
                 error: function () {
@@ -261,16 +262,6 @@ mysqli_close($conn);
                 }
             });
         });
-        //  $('#place-order').on('click', function () {
-        //     $.post('clear_cart.php', { session_id: '<?php echo session_id(); ?>' }, function (response) {
-        //         if (response.success) {
-        //             // setTimeout(function () {
-        //             //         window.location.href = "success.php";
-        //             //     }, 3000);
-        //         } else {
-        //             alert('Failed to clear cart.');
-        //         }
-        //     }, 'json');
-        // });
+        
     });
 </script>

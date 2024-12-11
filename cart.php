@@ -1,3 +1,13 @@
+
+<?php
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_SESSION['checkout_step'] = true;
+    header('Location: checkout.php'); // Redirect to the checkout page
+    exit();
+}
+?>
 <?php include 'header.php'; ?>
 
 <!-- Cart Table -->

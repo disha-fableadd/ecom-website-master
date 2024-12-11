@@ -12,11 +12,13 @@ include 'header.php';
                 <form id="loginForm" method="POST">
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" required>
+                        <input type="text" class="form-control" name="email" id="email" placeholder="Enter your email" >
+                        <div id="message1" class="text-danger"></div>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" required>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" >
+                        <div id="message2" class="text-danger"></div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Login</button>
                 </form>
@@ -42,6 +44,27 @@ $(document).ready(function() {
 
         $('#message').html('');
 
+        var email = $('#email').val().trim();
+        var password = $('#password').val().trim();
+        var isValid = true;
+
+        // Client-side validation
+        if (!email) {
+            isValid = false;
+            $('#message1').html('<div class="">Email is required .</div>');
+        } else if (!validateEmail(email)) {
+            isValid = false;
+            $('#message1').html('<div class="">Invalid email format.</div>');
+        } else if (!password) {
+            isValid = false;
+            $('#message2').html('<div class="">Password is required .</div>');
+        } else if (password.length < 6) {
+            isValid = false;
+            $('#message2').html('<div class="">Password must be at least 6 characters long.</div>');
+        }
+
+        if (!isValid) return;
+
         var formData = $(this).serialize();
 
         $.ajax({
@@ -63,5 +86,12 @@ $(document).ready(function() {
             }
         });
     });
+
+    // Email validation function
+    function validateEmail(email) {
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
 });
 </script>
+
