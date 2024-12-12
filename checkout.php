@@ -2,57 +2,61 @@
 include 'db.php';
 session_start();
 
-
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
-
 if (!$user_id) {
-    header("Location: login.php"); 
+    header("Location: login.php");
     exit();
 }
 
 
+// $order_status_sql = "SELECT status FROM orders WHERE user_id = '$user_id' ORDER BY created_at DESC LIMIT 1";
+// $order_status_result = mysqli_query($conn, $order_status_sql);
+
+// if ($order_status_result && mysqli_num_rows($order_status_result) > 0) {
+//     $order_status = mysqli_fetch_assoc($order_status_result)['status'];
+
+
+//     if ($order_status === "complete") {
+//         header("Location: success.php");
+//         exit();
+//     }
+// }
+
+
 $user_details = [];
-if ($user_id) {
-    $sql = "SELECT * FROM users WHERE id = '$user_id'";
-    $result = mysqli_query($conn, $sql);
-
-    if (!$result) {
-        die("Error executing query: " . mysqli_error($conn));
-    }
-
-    if (mysqli_num_rows($result) > 0) {
-        $user_details = mysqli_fetch_assoc($result);
-    } else {
-        echo "No user found with this ID.";
-    }
+$user_sql = "SELECT * FROM users WHERE id = '$user_id'";
+$user_result = mysqli_query($conn, $user_sql);
+if ($user_result && mysqli_num_rows($user_result) > 0) {
+    $user_details = mysqli_fetch_assoc($user_result);
 }
+
 
 $cart_sql = "
     SELECT p.name, p.price, c.quantity
     FROM cart c
     JOIN products p ON c.product_id = p.id
-    WHERE c.user_id = $user_id";
+    WHERE c.user_id = '$user_id'";
 $cart_result = mysqli_query($conn, $cart_sql);
-
-if (!$cart_result) {
-    die("Cart query failed: " . mysqli_error($conn));
-}
 
 $total = 0;
 $cart_items = [];
-
-if (mysqli_num_rows($cart_result) > 0) {
+if ($cart_result && mysqli_num_rows($cart_result) > 0) {
     while ($row = mysqli_fetch_assoc($cart_result)) {
         $cart_items[] = $row;
         $total += $row['price'] * $row['quantity'];
     }
-}
-else{
-    echo "no product in cart..";
+} else {
+    echo "No products in cart.";
+    header("location:home.php");
+    exit();
 }
 
-mysqli_close($conn);
+// Continue with checkout display logic...
 ?>
+
+
+
+
 
 
 <?php include 'header.php'; ?>

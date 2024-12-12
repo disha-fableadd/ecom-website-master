@@ -2,8 +2,6 @@
 include 'db.php';
 session_start();
 
-
-
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['success' => false, 'message' => 'User not logged in.']);
     exit;
@@ -32,14 +30,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $total = mysqli_real_escape_string($conn, $_POST['total']);
 
     // Insert into orders table
-    $sql = "INSERT INTO orders (user_id, first_name, last_name, email, mobile, address, zip_code, city, state, total) 
-            VALUES ('$user_id','$first_name', '$last_name', '$email', '$mobile', '$address', '$zip_code', '$city', '$state', '$total')";
+    $sql = "INSERT INTO orders (user_id, first_name, last_name, email, mobile, address, zip_code, city, state, total, status) 
+            VALUES ('$user_id','$first_name', '$last_name', '$email', '$mobile', '$address', '$zip_code', '$city', '$state', '$total', 'pending')";
 
     if (mysqli_query($conn, $sql)) {
-        
         $order_id = mysqli_insert_id($conn);
 
-       
+        // Retrieve items from cart
         $cart_sql = "SELECT product_id, quantity FROM cart WHERE user_id = '$user_id'";
         $cart_result = mysqli_query($conn, $cart_sql);
 
@@ -60,11 +57,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
 
             if ($order_items_success) {
-                // Clear the cart after successful order placement
                 $delete_cart_sql = "DELETE FROM cart WHERE user_id = '$user_id'";
                 if (mysqli_query($conn, $delete_cart_sql)) {
-                    $_SESSION['order_success'] = true; // Set success flag
-                    echo json_encode(['success' => true, 'message' => 'Order placed successfully.']);
+                    $update_status_sql = "UPDATE orders SET status = 'complete' WHERE order_id = '$order_id'";
+                    if (mysqli_query($conn, $update_status_sql)) {
+                        $_SESSION['order_success'] = true; 
+                        echo json_encode(['success' => true, 'message' => 'Order placed successfully.']);
+                       
+                    } else {
+                        echo json_encode(['success' => false, 'message' => 'Order placed, but status update failed.']);
+                    }
                 } else {
                     echo json_encode(['success' => false, 'message' => 'Order placed, but cart clearing failed.']);
                 }
@@ -73,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         } else {
             echo json_encode(['success' => false, 'message' => 'No items in cart.']);
+          
         }
     } else {
         echo json_encode(['success' => false, 'message' => 'Error placing order: ' . mysqli_error($conn)]);
